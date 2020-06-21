@@ -1,16 +1,14 @@
 class GeoRoutes < Application
   post '/' do
-    p '---> params'
-    p params
     geocode_params = validate_with!(GeocodeParamsContract)
+    coordinates = Geocoder.geocode(geocode_params[:city])
 
-    result = Geocoder::UpdateService.call(*geocode_params.to_h.values)
-
-    if result.success?
+    if coordinates.present?
       status 201
+      json coordinates: coordinates
     else
       status 422
-      error_response result.errors
+      error_response I18n.t(:invalid_city, scope: 'services.geocode_service')
     end    
   end
 end

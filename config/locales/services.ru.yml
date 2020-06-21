@@ -1,5 +1,4 @@
 ru:
   services:
     geocode_service:
-      invalid_ad: 'Ошибка получения объявления'
       invalid_city: 'Неправильное название города'
